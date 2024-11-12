@@ -1,0 +1,47 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge"> 
+  <!--<link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/gif" sizes="16x16"> -->
+  <title>{% block head_title %}{% endblock %}</title>
+  {% block extra_head %}{% endblock extra_head%}
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">  
+</head>
+<style>
+a{
+  color: inherit;
+}
+</style>
+<body>        
+    {% if messages %}
+    <div aria-live="polite" aria-atomic="true" style="position: fixed; top: 7rem; right: 2rem;z-index:1500">
+      {% for message in messages %}
+      <div style="position: relative; top: 0; right: 0;z-index:1500">      
+        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+          <div class="toast-header" >
+            <span style="background:#ff8c00;width:20px;height:20px;" class="rounded mr-2"></span>
+            <strong class="mr-auto">Presimax</strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="toast-body">
+            {{ message }}
+          </div>
+        </div>      
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+    {% block content %}
+    {% endblock content %}
+
+    {% block extra_body %}
+    {% endblock extra_body %}        
+</body>
+</html>

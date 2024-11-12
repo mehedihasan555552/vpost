@@ -1,0 +1,70 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block content %}
+<style>
+#login{
+  color:  darkorange !important;    
+}
+label{
+font-weight:401 !important;
+} 
+#id_last_name{
+color:#23de02 !important;
+font-weight:401 !important;
+}
+</style>
+  <main>
+    <div class="container rounded">
+      <section class="mb-4">
+        <div class="row wow fadeIn mr-1">
+          <div class='offset-1'>
+            <h3>{% trans "Sign Up" %}</h3>
+            
+            <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+              {% csrf_token %}
+              {{ form|crispy }}
+              {% if redirect_field_value %}
+              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+              {% endif %}
+              <p style="font-size:1em">{% blocktrans %}Already have an account? Then please <a style="font-size:1.5em" href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+              <div onclick="enable()" class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
+                  <label class="custom-control-label" for="defaultUnchecked">Agree our <a href="{% url 'core:privacy' %}"><b style="color:blue" class="text-primary"> Terms and conditions.</b></a></label>
+              </div> 
+              <button onclick="enable()" class='btn btn-primary mt-2' id="name" type="submit" disabled>{% trans "Sign Up" %} &raquo;</button>
+              <div style="margin-bottom:32%"></div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  </main>
+{% endblock %}
+{% block extra_scripts %}
+<script>
+  var loc = String(window.location.href);
+  var lst = loc.split('/');    
+  ref_code = lst[lst.length-1];
+  if(lst[lst.length-2]=="signup"){    
+    $('#id_last_name').val(ref_code);
+    $('#id_last_name').text(ref_code);}
+
+function enable() {
+var loc = String(window.location.href);
+var lst = loc.split('/');    
+if(lst[lst.length-2]=="signup"){    
+$('#id_last_name').val(ref_code);
+$('#id_last_name').text(ref_code);}
+var checked = document.getElementById("defaultUnchecked").checked;
+if(checked){
+document.getElementById("name").disabled = false;}
+else{
+document.getElementById("name").disabled = true;}
+}
+</script>
+{% endblock extra_scripts %}

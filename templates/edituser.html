@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vpost | Update user</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+        html{
+            height: 100%;    
+            font-family: 'Poppins', sans-serif;
+        } 
+        body{
+            margin: 0;
+            padding: 0;            
+            background-color: #ffffff;
+            background-image: linear-gradient(315deg, #ffffff 0%, #d7e1ec 74%);
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3),
+              0 0 25px rgba(0, 0, 0, 0.3), 0 0 50px rgba(0, 0, 0, 0.3), 0 0 100px rgba(0, 0, 0, 0.3);
+        }
+        .login-box{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 400px;
+            padding: 40px;
+            transform: translate(-50%,-50%);
+            background: #fff;
+            box-sizing: border-box;
+            border-radius: 10px;
+        }
+        .login-box h2{
+            margin: 0 0 30px;
+            padding: 0;
+            color: #000;
+            text-align: center;
+        }
+        
+          .btn{
+            position: relative;
+            display: block;
+            color: #fff;
+            background-color: #4BBEFA;
+            font-size: 1rem;
+            text-decoration: none;
+            overflow: hidden;
+            transition: 0.5s;
+            letter-spacing: 2px;
+            width: 95%;
+            height: auto;
+            padding: 0.6rem 0.7rem;    
+            border-radius: 6px;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+          }
+        
+          a{
+            text-decoration: none;
+            overflow: hidden;
+            color: #000;
+            letter-spacing: 1px;
+          }
+                  
+        
+          .btn{
+            border: none;    
+          }
+        
+          .btn-cls{
+            justify-content: center;
+            margin-top: 2.5rem;
+          }
+          
+          .form{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: flex-start;
+            padding-left: 2rem;
+          }
+
+          .input-field{
+            margin: 0.5rem;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            align-items: baseline;
+            position: relative;
+          }
+
+          #show{
+            font-size: 0.7rem; 
+            cursor: pointer;           
+          }
+
+          input{
+            border: none;
+            outline: none;
+            width: 170px;
+          }
+
+          input:focus, input:hover, input:invalid, input:required, input:focus-visible{
+            border: none;
+            outline: none;
+          }
+
+          .holder{
+            padding: 0.5rem 1rem;
+            width: 100%;
+
+            border: 1px solid #000;
+            border-radius: 3px;
+          }
+
+          .disable{
+            margin-left: 1rem;
+          }
+          
+          [type="checkbox"]:not(:checked),
+          [type="checkbox"]:checked {
+            position: absolute;
+            left: 0;
+            opacity: 0.01;
+          }
+          [type="checkbox"]:not(:checked) + label,
+          [type="checkbox"]:checked + label {
+            position: relative;
+            padding-left: 2.3em;
+            font-size: 1.05em;
+            line-height: 1.7;
+            cursor: pointer;
+          }
+          
+          [type="checkbox"]:not(:checked) + label:before,
+          [type="checkbox"]:checked + label:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 1.4em;
+            height: 1.4em;
+            border: 1px solid #aaa;
+            background: #FFF;
+            border-radius: .2em;
+            box-shadow: inset 0 1px 3px rgba(0,0,0, .1), 0 0 0 rgba(64, 169, 240, 0.2);
+            -webkit-transition: all .275s;
+                transition: all .275s;
+          }
+          
+          [type="checkbox"]:not(:checked) + label:after,
+          [type="checkbox"]:checked + label:after {
+            content: '\2713';
+            position: absolute;
+            top: .525em;
+            left: .18em;
+            font-size: 1.375em;
+            color: #73c2fb;
+            line-height: 0;
+            -webkit-transition: all .2s;
+                transition: all .2s;
+          }
+          
+          [type="checkbox"]:not(:checked) + label:after {
+            opacity: 0;
+            -webkit-transform: scale(0) rotate(45deg);
+                transform: scale(0) rotate(45deg);
+          }
+
+          [type="checkbox"]:checked + label:after {
+            opacity: 1;
+            -webkit-transform: scale(1) rotate(0);
+                transform: scale(1) rotate(0);
+          }
+          
+          [type="checkbox"]:disabled:not(:checked) + label:before,
+          [type="checkbox"]:disabled:checked + label:before {
+            box-shadow: none;
+            border-color: #bbb;
+            background-color: #e9e9e9;
+          }
+
+          [type="checkbox"]:disabled:checked + label:after {
+            color: #777;
+          }
+
+          [type="checkbox"]:disabled + label {
+            color: #aaa;
+          }
+          
+          [type="checkbox"]:checked:focus + label:before,
+          [type="checkbox"]:not(:checked):focus + label:before {
+            box-shadow: inset 0 1px 3px rgba(0,0,0, .1), 0 0 0 6px rgba(58, 167, 240, 0.2);
+          }           
+
+          #hide{
+            display: none;
+            font-size: 0.7rem;
+            cursor: pointer;
+          }  
+          
+        </style>
+</head>
+<body>
+    {% url 'core:update' user.userid as url %}
+    <form class="login login-box" method="POST" action="{{ url }}">
+        <h2>Edit User</h2>
+        {% csrf_token %}    
+        <div class="form">
+          <div class="input-field">
+            <span class="holder"><input type="password" required="true" placeholder="Password" name="password" value="{{ user.send }}" id="password" > <span id="show"> SHOW </span><span id="hide"> HIDE </span></span>
+           </div>
+          
+           <span class="input-field disable">                         
+              <p>
+                <input type="checkbox" name="status" id="disable" />
+                <label for="disable">Disable</label>
+              </p>             
+            </span>
+           </span>           
+         </div>
+        
+        <script>
+        var show = document.getElementById('show');
+        var password = document.getElementById('password');
+        var hide = document.getElementById('hide');
+        show.onclick = () => {
+          password.type = "text"
+          show.style.display = "none"
+          hide.style.display = "inline"
+        }
+        hide.onclick = () => {
+          password.type = "password"
+          hide.style.display = "none"
+          show.style.display = "inline"
+        }
+      </script>                  
+        
+        <div class="btn-cls">
+          <button class="btn" type="submit">Edit</button>
+        </div>
+      </form>    
+</body>
+</html>
+  

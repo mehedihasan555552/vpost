@@ -1,0 +1,106 @@
+{% load  static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VPost</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+        *{
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        html{
+            height: 100%;    
+        } 
+        body{
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;    
+            background-color: #ffffff;
+            background-image: linear-gradient(315deg, #ffffff 0%, #d7e1ec 74%);            
+        }
+        .content{
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          height: auto;
+          width: auto;
+          padding: 40px;
+          transform: translate(-50%,-50%);
+          background: #fff;
+          box-sizing: border-box;
+          border-radius: 10px;
+          text-align: center;          
+          box-shadow: 0 0 5px rgba(0, 0, 0, 0.05),
+            0 0 25px rgba(0, 0, 0, 0.05), 0 0 50px rgba(0, 0, 0, 0.05), 0 0 100px rgba(0, 0, 0, 0.05);
+        }
+        .container{            
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;            
+        }
+        .card{
+            display: flex;      
+            width: 20rem;      
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 3rem;            
+        }
+        .card img{
+            width: 5rem;
+            height: 5rem;
+            object-fit: contain;
+        }     
+        .card p{
+            justify-self: center;
+            margin: 0 auto;
+            width: auto;
+        }   
+        a{
+            color: inherit;
+            text-decoration: none;
+            font-size: 1.4rem;
+            font-weight: 600;
+            align-self: center;
+            margin: 1rem auto;   
+        }        
+    </style>
+</head>
+<body>
+
+  <div class="content">  
+    <span style="float: left; margin-left: 12px; margin-top: 10px; font-weight: 700"> {{ request.user.username }} </span>
+    <a href="{% url 'core:single_userstastics' %}" style="float: right; color: blue"> View Statistics </a>
+    <div class="container">
+        <div class="card">
+            <div class="image">
+                <img src="{% static '/images/chrome.png' %}" alt="chrome Download">
+            </div>
+            <p>This extension is for chrome. After installation set options to forced proxy and allow private browsing.</p>
+            {% if not request.user.userprofile.chrome_ext_dis %}
+            <a href="{% url 'core:chrome-download' %}">Download</a>
+            {% endif %}
+            {% if not request.user.userprofile.chrome_bot_dis %}
+            <a href="{% url 'core:chrome-bot-download' %}">Bot Download</a>
+            {% endif %}            
+        </div>
+        <div class="card">
+            <div class="image">
+                <img src="{% static '/images/firefox.png' %}" alt="firefox Download">
+            </div>
+            <p>This extension is for Firefox. To install go to <em>about:debugging</em> page and load temporary extension. After installation allow private browsing.</p>
+            {% if not request.user.userprofile.firefox_ext_dis %}
+            <a href="{% url 'core:firefox-download' %}">Download</a>
+            {% endif %}
+            {% if not request.user.userprofile.firefox_bot_dis %}     
+            <a href="{% url 'core:firefox-bot-download' %}">Bot Download</a>
+            {% endif %}       
+        </div>
+      </div>
+    </div>
+</body>
+</html> 
