@@ -44,8 +44,8 @@ environ.Env.read_env()
 
 def get_token():
     url_login = "https://residential-api.oxylabs.io/v1/login"
-    username = "rjpdigitechsol"
-    password = "eN2nczdDdT"
+    username = "veerainfotech_llg08"
+    password = "Ammananna+123"
     userpass = username + ':' + password
     encoded_u = "Basic " + base64.b64encode(userpass.encode()).decode()
     headers = {"accept":"application/json","Authorization" : encoded_u}
@@ -233,14 +233,15 @@ def firefox_bot_download(request):
 class GeneralPage(LoginRequiredMixin,View):
     template_name = "index.html"
     def get(self,*args,**kwargs):
+        username = self.request.user.username  
         max_age = 1 * 24 * 60 * 60 
         send = self.request.user.userprofile.send
-        data = get_previous_day_data(self.request.user.userprofile.userid)[0]
+        data = username
         response = render(self.request,self.template_name,context={'pdata':data})
         response.set_cookie("username",self.request.user.userprofile.user_name,max_age=max_age)
         response.set_cookie("receive",send,max_age=max_age)        
         response.set_cookie("data",data,max_age=max_age)
-        return response         
+        return response            
 
         
 class userstastics(LoginRequiredMixin,View):
